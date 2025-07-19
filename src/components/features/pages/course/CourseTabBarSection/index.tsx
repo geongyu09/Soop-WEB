@@ -9,6 +9,7 @@ import { Suspense } from "@suspensive/react";
 import CourseListWithBookmarkMutate from "@widgets/CourseListWithBookmarkMutate";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 
+import { StackLink } from "@/service/StackLink";
 import CourseTabBarSectionSkeleton from "./CourseTabBarSection.skeleton";
 
 const tabTitleList = [
@@ -37,6 +38,10 @@ export default Suspense.with(
     const { data: courseList } = useCoursesOfMountainQuery(mountainId);
 
     const { courses } = courseList;
+
+    if (!courses) {
+      return <div className="text-center text-gray-500">코스가 없습니다.</div>;
+    }
 
     return (
       <section className="flex flex-col flex-1 overflow-hidden">
@@ -67,13 +72,15 @@ export default Suspense.with(
         <Spacing size={4} />
         <ul className="flex flex-col gap-4 bg-gray-200 p-6 overflow-y-auto flex-1">
           {courses.map(({ id, ...props }, index) => (
-            <div
-              key={`${id}-${index}`}
-              onClick={routeCourseDetail}
-              typeof="button"
-            >
-              <CourseListWithBookmarkMutate id={id} {...props} />
-            </div>
+            <StackLink href={`/map/course-detail/`} key={id}>
+              <div
+                key={`${id}-${index}`}
+                onClick={routeCourseDetail}
+                role="button"
+              >
+                <CourseListWithBookmarkMutate id={id} {...props} />
+              </div>
+            </StackLink>
           ))}
         </ul>
       </section>

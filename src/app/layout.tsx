@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import ModalProvider from "@/service/modal/provider";
+// import StackLinkProvider from "@/service/StackLink/provider";
 
 export const metadata: Metadata = {
   title: "산악구조",
@@ -68,7 +69,11 @@ export default function RootLayout({
     <html lang="ko" className={font.className}>
       <body className="select-none">
         <ModalProvider>
-          <TanstackQueryProvider>{children}</TanstackQueryProvider>
+          <TanstackQueryProvider>
+            {/* <StackLinkProvider> */}
+            {children}
+            {/* </StackLinkProvider> */}
+          </TanstackQueryProvider>
         </ModalProvider>
       </body>
     </html>

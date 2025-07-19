@@ -1,5 +1,6 @@
 "use client";
 
+import StackLinkProvider from "@/service/StackLink/provider";
 import {
   isServer,
   QueryClient,
@@ -37,8 +38,10 @@ export default function TanstackQueryProvider({
 
   return (
     <QueryClientProvider client={queryClient}>
-      {children}
-      <ReactQueryDevtools initialIsOpen={false} />
+      <StackLinkProvider>
+        {children}
+        <ReactQueryDevtools initialIsOpen={false} />
+      </StackLinkProvider>
     </QueryClientProvider>
   );
 }
